@@ -1,15 +1,16 @@
-﻿using Newtonsoft.Json;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using Newtonsoft.Json;
 using System;
 
 namespace Climber.api.main.Models
 {
     public class Skill
     {
-        [JsonProperty(PropertyName = "id")]
+        [BsonId]
         public Guid Id { get; set; }
-        [JsonProperty(PropertyName = "skillName")]
+        [BsonElement("skillName")]
         public string SkillName { get; set; }
-        [JsonProperty(PropertyName = "administrativeSkill")]
+        [BsonElement("administrativeSkill")]
         public bool AdministrativeSkill { get; set; }
 
     }

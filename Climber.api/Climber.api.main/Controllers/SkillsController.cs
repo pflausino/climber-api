@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Climber.api.main.Infra;
 using Climber.api.main.Models;
-using Microsoft.AspNetCore.Http;
+using Climber.api.main.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Climber.api.main.Controllers
@@ -13,24 +13,37 @@ namespace Climber.api.main.Controllers
     [ApiController]
     public class SkillsController : ControllerBase
     {
-        [HttpGet]
-        public async Task<ActionResult<Skill>> Get()
+        private readonly SkillService _skillService;
+
+        public SkillsController(SkillService skillService)
         {
-            var result = await DocumentDBRepositorySkill<Skill>.GetItemsAsync();
+            _skillService = skillService;
+        }
+
+        [HttpGet]
+        public ActionResult<Skill> Get()
+        {
+            var result = _skillService.Get();
             return Ok(result);
         }
 
         [HttpPost]
-        public async Task<ActionResult<Skill>> Post([FromBody] Skill skill)
+        public ActionResult<Skill> Post([FromBody] Skill skill)
         {
             if (ModelState.IsValid)
             {
                 skill.Id = Guid.NewGuid();
-                var result = await DocumentDBRepositorySkill<Skill>.CreateItemAsync(skill);
+                var result = _skillService.Create(skill);
                 return Ok(result);
             }
 
             return BadRequest();
+        }
+        [HttpDelete("{id}")]
+        public ActionResult<Person> Delete(Guid id)
+        {
+            _skillService.Remove(id);
+            return null;
         }
     }
 }

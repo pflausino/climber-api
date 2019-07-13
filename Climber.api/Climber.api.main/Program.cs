@@ -15,8 +15,6 @@ namespace Climber.api.main
     {
         public static void Main(string[] args)
         {
-            DocumentDBRepository<Models.Person>.Initialize();
-            DocumentDBRepositorySkill<Models.Skill>.Initialize();
             CreateWebHostBuilder(args).Build().Run();
         }
 

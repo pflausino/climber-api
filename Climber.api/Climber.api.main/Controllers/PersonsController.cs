@@ -1,5 +1,6 @@
 ﻿using Climber.api.main.Infra;
 using Climber.api.main.Models;
+using Climber.api.main.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,29 +12,53 @@ namespace Climber.api.main.Controllers
     [ApiController]
     public class PersonsController : ControllerBase
     {
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Person>>> Get()
+        private readonly PersonService _personService;
+
+        public PersonsController( PersonService personService)
         {
-            var result = await DocumentDBRepository<Person>.GetItemsAsync();
+            _personService = personService;
+        }
+        [HttpGet]
+        public ActionResult<List<Person>> Get()
+        {
+            var result = _personService.Get();
 
             return Ok(result);
 
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Person>> Get(Guid id)
+        public ActionResult<Person> Get(Guid id)
         {
-            return await DocumentDBRepository<Person>.GetItemAsync(id);
+            return _personService.Get(id);
         }
 
+        [HttpDelete("{id}")]
+        public ActionResult<Person> Delete(Guid id)
+        {
+            _personService.Remove(id);
+            return null;
+        }
         [HttpPost]
-        public async Task<ActionResult<Person>> Post([FromBody] Person person)
+        public ActionResult<Person> Post([FromBody] Person person)
         {
             if (ModelState.IsValid)
             {
                 person.Id = Guid.NewGuid();
-                var result = await DocumentDBRepository<Person>.CreateItemAsync(person);
+                var result = _personService.Create(person);
                 return Ok(result);
+            }
+
+            return BadRequest();
+        }
+
+        [HttpPut("{personId}")]
+        public ActionResult<Person> Put([FromBody] Person person, Guid personId)
+        {
+            if (ModelState.IsValid)
+            {
+                _personService.Update(personId, person);
+                return Ok();
             }
 
             return BadRequest();
