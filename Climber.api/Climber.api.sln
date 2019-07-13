@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29020.237
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Climber.api.main", "Climber.api.main\Climber.api.main.csproj", "{80CFC683-518F-4051-888B-55F57267A5B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Climber.api.main", "Climber.api.main\Climber.api.main.csproj", "{80CFC683-518F-4051-888B-55F57267A5B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Climber.api.controller.test", "Climber.api.controller.test\Climber.api.controller.test.csproj", "{6AB3D2B8-0126-474F-87F6-53838210A619}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Climber.api.controller.test", "Climber.api.controller.test\Climber.api.controller.test.csproj", "{6AB3D2B8-0126-474F-87F6-53838210A619}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
